@@ -4,11 +4,23 @@
     </ion-nav-buttons>
     <ion-content class="has-header has-footer">
 
-        <button ng-if="closed === true" class="button button-full button-assertive" style="margin:0">
+ <button ng-if="closed === true" class="button button-full button-assertive" style="margin:0">
 {{canteenName}} is closed today</button>
-        <ion-list class="list" on-swipe-left="next(1)" on-swipe-right="prev(1)">
+    <ion-slide-box on-slide-changed="change($index)">
+  <ion-slide ng-repeat="day in days">
 
-     
+       
+        <ion-list class="list">
+
+
+
+
+
+
+
+
+
+
 
             <div ng-repeat="category in categories | orderBy: 'priority'" class="{{category.$id}} menu-list">
                 <ion-item class="item item-divider">
@@ -44,6 +56,10 @@
                 </ion-item>
             </div>
         </ion-list>
+
+  </ion-slide>
+  
+</ion-slide-box>
 
     </ion-content>
 </ion-view>

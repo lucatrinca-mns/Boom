@@ -1,6 +1,6 @@
 angular.module('Boom')
-    .controller('homeController', ['$scope', '$rootScope', 'core', 'categories', 'dishes', '$filter',
-        function($scope, $rootScope, core, categories, dishes, $filter) {
+    .controller('homeController', ['$scope', '$rootScope', 'core', 'categories', 'dishes', '$filter', '$ionicSlideBoxDelegate',
+        function($scope, $rootScope, core, categories, dishes, $filter, $ionicSlideBoxDelegate) {
             'use strict';
 
             // Assign data to scope
@@ -8,8 +8,10 @@ angular.module('Boom')
             $scope.categories = categories;
             $scope.canteenName = core.canteenName;
             $scope.cycle = core.cycle(true);
-            $scope.nameDays = function() {
 
+            $scope.days = core.days
+            $scope.nameDays = function() {
+                console.log($ionicSlideBoxDelegate.currentIndex())
                 $scope.dayName = $filter('dayfy')($scope.activeDay);
             };
 
@@ -40,8 +42,11 @@ angular.module('Boom')
             };
 
 
+
             $scope.dayFilter = function(dish) {
-                return dish.week[$scope.cycle][core.days[$scope.activeDay]];
+                console.log('ss')
+
+                return dish.week[$scope.cycle][core.days[$ionicSlideBoxDelegate.currentIndex()]];
             };
 
             $scope.init = (function() {
@@ -50,7 +55,7 @@ angular.module('Boom')
                 if (core.isClosed()) {
                     $scope.closed = true;
                     // set view to Monday
-                    $scope.activeDay = 0;
+                    $scope.activeDay = 4;
                 } else {
                     // otherwise set view to current day
                     $scope.activeDay = core.day;
